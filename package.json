@@ -6,6 +6,10 @@
     "start": "next start"
   },
   "dependencies": {
+    "@emotion/react": "^11.10.4",
+    "@emotion/styled": "^11.10.4",
+    "@mui/icons-material": "^5.10.9",
+    "@mui/material": "^5.10.9",
     "graphql": "^16.6.0",
     "graphql-request": "^5.0.0",
     "html-react-parser": "^3.0.4",
