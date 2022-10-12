@@ -2,18 +2,20 @@
 import { GraphQLClient, gql } from "graphql-request";
 
 const graphqlAPI = process.env.NEXT_PUBLIC_GRAPHICS_ENDPOINT;
+const graphcmsToken = process.env.GRAPHCMS_TOKEN;
 
 export default async function comments(req, res) {
   // const {name,email,slug,comment} = req.body;
+  console.log({graphcmsToken})
 
-  const graphQLClient = new GraphQLClient(graphqlAPI, {
+  const graphQLClient = new GraphQLClient((graphqlAPI), {
     headers: {
-      authorization: `Bearer ${process.env.GRAPHCMS_TOKEN}`,
+      authorization: `Bearer ${graphcmsToken}`,
     },
   });
 
   const query = gql`
-    mutation Createcomment(
+    mutation CreateComment(
       $name: String!
       $email: String!
       $comment: String!
@@ -31,12 +33,8 @@ export default async function comments(req, res) {
       }
     }
   `;
-  const result = await graphQLClient.request(query,{
-    name: req.body.name,
-    email: req.body.email,
-    comment: req.body.comment,
-    slug: req.body.slug,
-  })
+  console.log(req.body)
+  const result = await graphQLClient.request(query,req.body)
 
   return res.status(200).send(result);
 }
